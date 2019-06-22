@@ -2,11 +2,12 @@ class Guide < ApplicationRecord
   has_many :ratings
   has_many :users, through: :ratings
   belongs_to :destination
-  # belongs_to :user
+  has_one_attached :image
 
   validates :title, presence: true
   validates :summary, presence: true
-
+  validates :image, presence: true
+  
   scope :rated, -> { joins(:ratings).distinct("ratings.guide_id") }
 
   def destination_location=(location)
