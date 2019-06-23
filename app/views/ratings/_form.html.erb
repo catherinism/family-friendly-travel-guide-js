@@ -1,7 +1,21 @@
-<%= form_for([@guide, @guide.ratings.build]) do |f| %>
-  <%= f.label :value %>
-  <%= f.text_field :value %>
+<div class="row">
+  <div class="col-md-6">
 
-  <%= f.submit "Submit Rating" %>
+    <h1> New Rating </h1>
+    <br>
 
-  <% end %>
+    <%= form_for([@guide, @guide.ratings.build]) do |f| %>
+    <%= f.label "Rating (5 being best):" %>
+    <%= f.select :value, (1..5) %>
+    <%= f.submit "Submit Rating" %>
+    <% end %>
+
+  </div>
+
+  <div class="col-md-6">
+
+    <%= image_tag "kid.jpg", size: "456x684" %>
+
+  </div>
+
+</div>

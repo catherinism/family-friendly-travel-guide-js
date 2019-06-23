@@ -1,5 +1,5 @@
 class RatingsController < ApplicationController
-  before_action :find_guide, except: [:rated]
+  before_action :find_guide, except: [:top_rated]
   before_action :find_rating, only: [:edit, :update, :destroy]
 
   def new

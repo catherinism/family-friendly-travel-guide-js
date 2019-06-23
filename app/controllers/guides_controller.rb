@@ -1,13 +1,9 @@
-require 'pry'
-
 class GuidesController < ApplicationController
-
   before_action :set_guide, only: [:show, :edit, :update, :destroy]
   before_action :not_authorized!, only: [:edit, :update, :destroy]
 
   def index
     if !params[:destination_id].blank?
-      #binding.pry
       @destination_id = Destination.find_by(id: params[:destination_id]).id
       @guides = Guide.where(destination_id: @destination_id)
     else
@@ -21,19 +17,15 @@ class GuidesController < ApplicationController
 
   def rated
     @guides = Guide.rated
-    render action: :index
+    render :index
   end
 
   def new
     @guide = current_user.guides.build
-    # @guide.destination_id = Destination.new
-    #@guide.user_id = current_user.id
-    #@destinations = Destination.all.map { |d| [d.location, d.id] }
   end
 
   def create
     @guide = current_user.guides.build(guide_params)
-    # @guide.destination_id = params[destination_id]
     @guide.user_id = current_user.id
     if @guide.save
       flash[:message] = "#{@guide.title} was successfully added."
@@ -45,12 +37,9 @@ class GuidesController < ApplicationController
   end
 
   def show
-    @user = User.find_by(id: params[:id])
-      if !logged_in?
-    #@rating = Rating.new
+    if !logged_in?
       flash[:message] = "Log in to view the details."
       redirect_to login_path
-
     end
   end
 
@@ -73,20 +62,20 @@ class GuidesController < ApplicationController
 
   private
 
-    def guide_params
-      params.require(:guide).permit(
-        :title,
-        :summary,
-        :lodging,
-        :itinerary,
-        :destination_location,
-        :airport,
-        :baby_gear_rental,
-        :park,
-        :zoo,
-        :restaurant,
-        :luggage_storage,
-        :image)
+  def guide_params
+    params.require(:guide).permit(
+      :title,
+      :summary,
+      :lodging,
+      :itinerary,
+      :destination_location,
+      :airport,
+      :baby_gear_rental,
+      :park,
+      :zoo,
+      :restaurant,
+      :luggage_storage,
+      :image)
     end
 
   def set_guide
@@ -95,8 +84,8 @@ class GuidesController < ApplicationController
 
   def not_authorized!
     if @guide.user_id != current_user.id
-      flash[:message] = "You can only make changes to your own guide."
-      redirect_to '/guides'
+    flash[:message] = "You can only make changes to your own guide."
+    redirect_to '/guides'
     end
   end
 

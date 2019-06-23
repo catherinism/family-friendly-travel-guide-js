@@ -8,6 +8,9 @@
   <div class="col-md-6">
     <%= image_tag(@guide.image, style: 'width:100%') %>
     <p class="guide-summary"><%= @guide.summary %></p>
+
+    <%= render @guide.ratings %>
+
   </div>
 
   <div class="col-md-6">
