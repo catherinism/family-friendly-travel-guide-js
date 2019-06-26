@@ -4,11 +4,24 @@ $(document).ready(function() {
 })
 
 const guidesIndexClick = () => {
-  $('.navbar-brand').on('click', (e) => {
+  $('.all-guides').on('click', (e) => {
     e.preventDefault()
     // console.log('hello')
     fetch('/guides.json')
       .then(response => response.json())
-      .then(guides => console.log(guides))
+      .then(guides => {
+        $('#container').html('')
+        guides.forEach(guide => {
+          let newGuide = new Guide(guide)
+          console.log(newGuide)
+        })
+      })
   })
+}
+
+function Guide(id, title, destination_id) {
+  this.id = id
+  this.title = title
+  this.summary = summary
+  this.destination_id = destination_id
 }
