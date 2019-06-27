@@ -37,6 +37,24 @@ const guidesIndexClick = () => {
       $('.container').append(guideHtml)
       })
   })
+
+  $('#new_guide').on('submit', function(e) {
+    e.preventDefault()
+    // console.log('submit guide')
+    // console.log($(this).serialize())
+    const values = $(this).serialize()
+
+    $.post('/guides', values)
+    .done(function(data) {
+      // console.log(data)
+      $('.container').html('')
+      $('.container').html('<h1> new content </h1>')
+      // // console.log(data)
+      const newGuide = new Guide(data)
+      const guideHtmlToAdd = newGuide.formatShow()
+      $('.container').html(guideHtmlToAdd)
+    })
+  })
 }
 
 function Guide(guide) {
