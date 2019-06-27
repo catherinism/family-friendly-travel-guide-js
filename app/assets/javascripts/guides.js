@@ -22,19 +22,43 @@ const guidesIndexClick = () => {
         })
       })
   })
+
+  $(document).on('click', '.show_guide', function(e) {
+    e.preventDefault()
+    $('.container').html('')
+    let id = ($(this).attr('data-id'))
+    fetch(`/guides/${id}.json`)
+    .then(response => response.json())
+    .then(guide => {
+
+
+      let newGuide = new Guide(guide)
+      let guideHtml = newGuide.formatShow()
+      $('.container').append(guideHtml)
+      })
+  })
 }
 
 function Guide(guide) {
   this.id = guide.id
   this.title = guide.title
+  this.destination_location = guide.destination_location
   this.summary = guide.summary
-  this.destination_id = guide.destination_id
 }
 
 Guide.prototype.formatIndex = function() {
+  // console.log(this)
+  let guideHtml = `
+  <a href="/guides/${this.id}" data-id="${this.id}" class="show_guide"><h1>${this.title}</h1></a>
+  `
+  return guideHtml
+}
+
+Guide.prototype.formatShow = function() {
   console.log(this)
   let guideHtml = `
-//     <a href="/guides/${this.id}"<h1>${this.title}</h1></a>
+  <h3>${this.title}</h3>
+  <h3>${this.destination_location}</h3>
   `
   return guideHtml
 }
