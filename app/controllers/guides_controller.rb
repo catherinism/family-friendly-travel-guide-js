@@ -37,9 +37,9 @@ class GuidesController < ApplicationController
   end
 
   def show
-    if !logged_in?
-      flash[:message] = "Log in to view the details."
-      redirect_to login_path
+    respond_to do |f|
+      f.html
+      f.json {render json: @guide}
     end
   end
 
@@ -80,6 +80,11 @@ class GuidesController < ApplicationController
 
   def set_guide
     @guide = Guide.find_by(id: params[:id])
+    if !logged_in?
+      flash[:message] = "Log in to view the details."
+      redirect_to login_path
+    end
+
   end
 
   def not_authorized!
