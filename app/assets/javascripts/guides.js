@@ -3,7 +3,7 @@ $(document).ready(function() {
   guidesIndexClick()
 })
 
-const guidesIndexClick = () => {
+function guidesIndexClick = () => {
   $('.all-guides').on('click', (e) => {
     e.preventDefault()
     // console.log('hello')
@@ -22,7 +22,9 @@ const guidesIndexClick = () => {
         })
       })
   })
+}
 
+function showGuide() {
   $(document).on('click', '.show_guide', function(e) {
     e.preventDefault()
     $('.container').html('')
@@ -31,24 +33,24 @@ const guidesIndexClick = () => {
     .then(response => response.json())
     .then(guide => {
 
-
       let newGuide = new Guide(guide)
       let guideHtml = newGuide.formatShow()
       $('.container').append(guideHtml)
       })
   })
+}
 
+$(function() {
   $('#new_guide').on('submit', function(e) {
     e.preventDefault()
     // console.log('submit guide')
     // console.log($(this).serialize())
     const values = $(this).serialize()
 
-    $.post('/guides', values)
-    .done(function(data) {
+    $.post('/guides', values).done(function(data) {
       // console.log(data)
       $('.container').html('')
-      $('.container').html('<h1> new content </h1>')
+      // $('.container').html('<h1> new content </h1>')
       // // console.log(data)
       const newGuide = new Guide(data)
       const guideHtmlToAdd = newGuide.formatShow()
@@ -79,4 +81,12 @@ Guide.prototype.formatShow = function() {
   <h3>${this.destination_location}</h3>
   `
   return guideHtml
+}
+
+Guide.prototype.formatNewGuide = function() {
+   let guideHtml = `
+       <h3>${this.title}</h3>
+       `
+   return guidetHtml
+
 }
