@@ -33,6 +33,7 @@
         </ul>
 
         <ul class="nav navbar-nav">
+          <% if logged_in? %>
           <li> <%= link_to "Rated Guides", rated_guides_path %> <li>
 
           <li class="dropdown">
@@ -42,6 +43,7 @@
               <li>
                 <%= link_to destination.location, destination_guides_path(destination) %>
               </li>
+              <% end %>
               <% end %>
             </ul>
               </li>
@@ -54,7 +56,6 @@
     <%= flash[:message] if flash[:message]%>
 
       <div class="container">
-
     <%= yield %>
     </div>
 
