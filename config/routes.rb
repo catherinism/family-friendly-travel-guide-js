@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-   root 'guides#index'
+   root 'sessions#home'
 
    resources :guides do
      collection do
