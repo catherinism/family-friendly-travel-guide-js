@@ -26,8 +26,9 @@
             <li> <%= link_to "Sign In", login_path %> </li>
             <li> <%= link_to "Log In via Facebook", '/auth/facebook' %> </li>
               <% else %>
-              <li> <%= link_to "Logout", logout_path, method: :delete %> </li>
+              <li> <%= link_to "Guides", guides_path, class: "all-guides" %> </li>
               <li> <%= link_to "New Guide", new_guide_path %> <li>
+              <li> <%= link_to "Logout", logout_path, method: :delete %> </li>
               <% end %>
         </ul>
 
@@ -52,11 +53,10 @@
 
     <%= flash[:message] if flash[:message]%>
 
-      <div class="container"
+      <div class="container">
 
     <%= yield %>
-
-      </div>
+    </div>
 
       <br><br>
 
