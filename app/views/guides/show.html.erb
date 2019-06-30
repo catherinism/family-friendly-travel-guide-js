@@ -6,7 +6,9 @@
   </div>
 
   <div class="col-md-6">
+    <span class="guide-image">
     <%= image_tag(@guide.image, style: 'width:100%') if @guide.image.attached? %>
+    </span>
     <p class="guide-summary"><%= @guide.summary %></p>
 
     <%= render @guide.ratings %>
