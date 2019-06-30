@@ -6,8 +6,7 @@ class Guide < ApplicationRecord
 
   validates :title, presence: true
   validates :summary, presence: true
-  validates :image, presence: true
-  
+
   scope :rated, -> { joins(:ratings).distinct("ratings.guide_id") }
 
   def destination_location=(location)
