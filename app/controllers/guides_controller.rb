@@ -9,7 +9,7 @@ class GuidesController < ApplicationController
     else
       @guides = Guide.all
       respond_to do |f|
-        f.html
+        f.html {render :index}
         f.json {render json: @guides}
       end
     end
@@ -28,8 +28,7 @@ class GuidesController < ApplicationController
     @guide = current_user.guides.build(guide_params)
     @guide.user_id = current_user.id
     if @guide.save
-      flash[:message] = "#{@guide.title} was successfully added."
-      redirect_to guide_path(@guide)
+      render json: @guide
     else
       flash[:message] = "#{@guide.errors.full_messages.to_sentence}."
       render :new
@@ -38,7 +37,7 @@ class GuidesController < ApplicationController
 
   def show
     respond_to do |f|
-      f.html
+      f.html {render :show}
       f.json {render json: @guide}
     end
   end
@@ -79,12 +78,11 @@ class GuidesController < ApplicationController
     end
 
   def set_guide
-    @guide = Guide.find_by(id: params[:id])
+    @guide = Guide.find(params[:id])
     if !logged_in?
       flash[:message] = "Log in to view the details."
       redirect_to login_path
     end
-
   end
 
   def not_authorized!
