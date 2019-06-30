@@ -1,5 +1,21 @@
-<h1>Welcome</h1>
+<div class="row">
 
-<%= link_to "Sign Up", signup_path %>
-OR
-<%= link_to "Log in", login_path %>
+  <div class="col-md-6">
+    <% if !logged_in? %>
+    <h3 class="home-title"> WELCOME TO FAMILY-FRIENDLY TRAVEL GUIDE!</h3>
+    <br>
+    <h4><%= link_to "Sign Up", new_user_path %> | <%= link_to "Log In", login_path %></h4>
+    <% else %>
+    <h3 class="home-title"> GET READY FOR YOUR NEXT ADVENTURE.</h3>
+    <br>
+    <h4><%= link_to "View All Guides", guides_path, class: "all-guides" %> | <%= link_to "Create a New Guide", new_guide_path %></h4>
+    <% end %>
+    <br>
+
+  </div>
+
+  <div class="col-md-6">
+    <%= image_tag "kid.jpg", size: "456x684" %>
+  </div>
+
+</div>
