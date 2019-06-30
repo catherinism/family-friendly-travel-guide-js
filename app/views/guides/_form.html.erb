@@ -13,24 +13,24 @@
         <% end %>
       </datalist><br><br>
 
-      <%= f.label :image, "Add an image" %><br>
-      <%= f.file_field :image %><br>
+
       <%= f.label :summary %><br>
       <%= f.text_area :summary, size: "59x4" %><br><br>
       <%= f.label :airport %><br>
       <%= f.text_field :airport, size: "60%" %><br><br>
       <%= f.label :lodging %><br>
       <%= f.text_field :lodging, size: "59x4" %><br><br>
+      <%= f.label "Restaurants" %><br>
+      <%= f.text_field :restaurant, size: "60%" %><br><br>
 
     </div>
 
     <div class="col-md-6">
-      <%= f.label "Restaurants" %><br>
-      <%= f.text_field :restaurant, size: "60%" %><br><br>
+
       <%= f.label "Parks" %><br>
       <%= f.text_field :park, size: "60%" %><br><br>
       <%= f.label "Zoos" %><br>
-      <%= f.text_field :zoo, size: "60%" %><br><br>
+      <%= f.text_field :zoo, size: "60%" %><br><br><br>
 
       <p> Available Nearby? </p>
       <%= f.label :baby_gear_rental %><br>
