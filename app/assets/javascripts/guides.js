@@ -1,12 +1,15 @@
 $(document).ready(function() {
-  // console.log('hellow')
+  // console.log('hello')
   guidesIndexClick()
+  showGuide()
+  newForm()
+
 })
 
-function guidesIndexClick = () => {
+function guidesIndexClick() {
   $('.all-guides').on('click', (e) => {
     e.preventDefault()
-    // console.log('hello')
+    // console.log('hello again')
     history.pushState(null, null, 'guides')
     fetch('/guides.json')
       .then(response => response.json())
@@ -28,7 +31,7 @@ function showGuide() {
   $(document).on('click', '.show_guide', function(e) {
     e.preventDefault()
     $('.container').html('')
-    let id = ($(this).attr('data-id'))
+    let id = $(this).attr('data-id')
     fetch(`/guides/${id}.json`)
     .then(response => response.json())
     .then(guide => {
@@ -40,18 +43,15 @@ function showGuide() {
   })
 }
 
-$(function() {
-  $('#new_guide').on('submit', function(e) {
+ function newForm() {
+  $(document).on('submit', '#new_guide', function(e) {
     e.preventDefault()
-    // console.log('submit guide')
-    // console.log($(this).serialize())
+    console.log('event preventend')
+
     const values = $(this).serialize()
 
     $.post('/guides', values).done(function(data) {
-      // console.log(data)
       $('.container').html('')
-      // $('.container').html('<h1> new content </h1>')
-      // // console.log(data)
       const newGuide = new Guide(data)
       const guideHtmlToAdd = newGuide.formatShow()
       $('.container').html(guideHtmlToAdd)
@@ -64,12 +64,23 @@ function Guide(guide) {
   this.title = guide.title
   this.destination_location = guide.destination_location
   this.summary = guide.summary
+  this.airport = guide.airport
+  this.lodging = guide.lodging
+  this.restaurant = guide.restaurant
+  this.park = guide.park
+  this.zoo = guide.zoo
+  this.baby_gear_rental = guide.baby_gear_rental
+  this.luggage_storage = guide.luggage_storage
+  this.itinerary = guide.itinerary
 }
 
 Guide.prototype.formatIndex = function() {
-  // console.log(this)
+  console.log(this)
   let guideHtml = `
-  <a href="/guides/${this.id}" data-id="${this.id}" class="show_guide"><h1>${this.title}</h1></a>
+  <div class="col-md-4">
+  <a href="/guides/${this.id}" data-id="${this.id}" class="show_guide"><h2 class="guide-title">${this.title}</h2></a>
+  <p class="guide-destination">${this.destination_location}</p>
+  </div>
   `
   return guideHtml
 }
@@ -77,16 +88,37 @@ Guide.prototype.formatIndex = function() {
 Guide.prototype.formatShow = function() {
   console.log(this)
   let guideHtml = `
-  <h3>${this.title}</h3>
-  <h3>${this.destination_location}</h3>
+
+  <div class="col-md-12">
+    <h3>${this.title}</h3>
+    <p class="guide-destination"> <i class="fas fa-globe-americas"></i> ${this.destination_location}</p>
+  </div>
+
+  <div class="col-md-6">
+    <p class="guide-summary"> ${this.summary}</p>
+
+    <hr class="my-4">
+    <h2 class="guide-destination">Itinerary</h2>
+    <p><i class="fas fa-map-signs"></i> ${this.itinerary}</p>
+  </div>
+
+  <div class="col-md-6">
+    <h2 class="guide-destination">Details</h2>
+    <p><i class="fas fa-plane-departure"></i> ${this.airport}</p>
+    <p><i class="fas fa-bed"></i> ${this.lodging}</p>
+    <p><i class="fas fa-utensils"></i> ${this.restaurant}</p>
+    <p><i class="fas fa-tree"></i> ${this.park}</p>
+    <p><i class="fas fa-hippo"></i> ${this.zoo}</p><br>
+    <h2 class="guide-destination">Nearby</h2>
+  </div>
+
+  <div class="col-md-3">
+    <h2 class="guide-destination"><i class="fas fa-baby-carriage"></i> Baby Gear Rental: ${this.baby_gear_rental}</h2>
+  </div>
+
+  <div class="col-md-3">
+    <h2 class="guide-destination"><i class="fas fa-suitcase-rolling"></i> Luggage Storage: ${this.luggage_storage}</h2>
+  </div>
   `
   return guideHtml
-}
-
-Guide.prototype.formatNewGuide = function() {
-   let guideHtml = `
-       <h3>${this.title}</h3>
-       `
-   return guidetHtml
-
 }
