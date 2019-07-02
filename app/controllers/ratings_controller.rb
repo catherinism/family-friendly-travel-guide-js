@@ -37,7 +37,7 @@ class RatingsController < ApplicationController
   private
 
     def rating_params
-      params.require(:rating).permit(:value)
+      params.require(:rating).permit(:value, :comment)
     end
 
     def find_guide
