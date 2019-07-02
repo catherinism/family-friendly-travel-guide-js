@@ -72,6 +72,7 @@ function Guide(guide) {
   this.baby_gear_rental = guide.baby_gear_rental
   this.luggage_storage = guide.luggage_storage
   this.itinerary = guide.itinerary
+  this.ratings = guide.ratings
 }
 
 Guide.prototype.formatIndex = function() {
@@ -86,7 +87,14 @@ Guide.prototype.formatIndex = function() {
 }
 
 Guide.prototype.formatShow = function() {
-  console.log(this)
+  // console.log(this)
+
+  let ratingsHtml = ``
+    this.ratings.forEach((rating) => {
+      ratingsHtml += `<li>${rating.value} - ${rating.comment}</li>`
+    })
+
+
   let guideHtml = `
 
   <div class="col-md-12">
@@ -98,8 +106,12 @@ Guide.prototype.formatShow = function() {
     <p class="guide-summary"> ${this.summary}</p>
 
     <hr class="my-4">
-    <h2 class="guide-destination">Itinerary</h2>
-    <p><i class="fas fa-map-signs"></i> ${this.itinerary}</p>
+    <h2 class="guide-destination"><i class="fas fa-map-signs"></i> Itinerary</h2>
+    <p> ${this.itinerary}</p>
+
+    <hr class="my-4">
+    <h2 class="guide-destination"><i class="fas fa-star"></i> Ratings</h2>
+    <p class="guide-destination"> ${ratingsHtml}</p>
   </div>
 
   <div class="col-md-6">
