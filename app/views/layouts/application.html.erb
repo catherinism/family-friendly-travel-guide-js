@@ -26,6 +26,7 @@
             <li> <%= link_to "Sign In", login_path %> </li>
             <li> <%= link_to "Log In via Facebook", '/auth/facebook' %> </li>
               <% else %>
+              <li> <%= link_to "Sorted Guides", guides_path, class: "sorted-guides" %> </li>
               <li> <%= link_to "Guides", guides_path, class: "all-guides" %> </li>
               <li> <%= link_to "New Guide", new_guide_path %> <li>
               <li> <%= link_to "Logout", logout_path, method: :delete %> </li>

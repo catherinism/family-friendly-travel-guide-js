@@ -1,9 +1,9 @@
 $(document).ready(function() {
-  // console.log('hello')
+  console.log('hello')
   guidesIndexClick()
   showGuide()
   newForm()
-
+  guidesSortedClick()
 })
 
 function guidesIndexClick() {
@@ -15,6 +15,40 @@ function guidesIndexClick() {
       .then(response => response.json())
       .then(guides => {
         $('.container').html('')
+        guides.forEach(guide => {
+          // console.log(guide)
+          let newGuide = new Guide(guide)
+          let guideHtml = newGuide.formatIndex()
+          // console.log(guideHtml)
+          $('.container').append(guideHtml)
+          // console.log(newGuide)
+        })
+      })
+  })
+}
+
+function guidesSortedClick() {
+  $('.sorted-guides').on('click', (e) => {
+    e.preventDefault()
+    history.pushState(null, null, 'guides')
+    fetch('/guides.json')
+      .then(response => response.json())
+      .then(guides => {
+        $('.container').html('')
+        console.log("hello there")
+        guides.sort(function(a, b) {
+          var nameA = a.title.toUpperCase();
+          var nameB = b.title.toUpperCase();
+          if (nameA < nameB) {
+            return -1;
+          }
+          if (nameA > nameB) {
+            return 1;
+          }
+          // names must be equal
+          return 0;
+        });
+
         guides.forEach(guide => {
           // console.log(guide)
           let newGuide = new Guide(guide)
@@ -46,7 +80,7 @@ function showGuide() {
  function newForm() {
   $(document).on('submit', '#new_guide', function(e) {
     e.preventDefault()
-    console.log('event preventend')
+    console.log('event prevented')
 
     const values = $(this).serialize()
 
